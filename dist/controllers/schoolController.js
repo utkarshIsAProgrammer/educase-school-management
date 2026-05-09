@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSchool = exports.updateSchool = exports.listSchools = exports.addSchool = void 0;
+exports.listSchools = exports.addSchool = void 0;
 const zod_1 = require("zod");
 const db_1 = __importDefault(require("../config/db"));
 const schoolSchemas_1 = require("../schemas/schoolSchemas");
@@ -49,69 +49,3 @@ const listSchools = async (req, res, next) => {
     }
 };
 exports.listSchools = listSchools;
-// Updates an existing school's information.
-const updateSchool = async (req, res, next) => {
-    try {
-        const id = Number(req.params.id);
-        if (isNaN(id)) {
-            return res.status(400).json({ message: "Invalid school ID" });
-        }
-        const validatedBody = schoolSchemas_1.updateSchoolSchema.partial().parse(req.body);
-        const fieldsToUpdate = [];
-        const values = [];
-        Object.entries(validatedBody).forEach(([key, value]) => {
-            if (value !== undefined) {
-                fieldsToUpdate.push(`${key} = ?`);
-                values.push(value);
-            }
-        });
-        if (fieldsToUpdate.length === 0) {
-            return res.status(400).json({
-                message: "No fields to update provided.",
-            });
-        }
-        values.push(id);
-        const [result] = await db_1.default.execute(`UPDATE schools SET ${fieldsToUpdate.join(", ")} WHERE id = ?`, values);
-        const updateResult = result;
-        if (updateResult.affectedRows === 0) {
-            return res.status(404).json({
-                message: "School not found.",
-            });
-        }
-        res.status(200).json({
-            message: "School updated successfully",
-            schoolId: id,
-        });
-    }
-    catch (error) {
-        if (error instanceof zod_1.z.ZodError) {
-            return res.status(400).json({
-                errors: error.issues,
-            });
-        }
-        next(error);
-    }
-};
-exports.updateSchool = updateSchool;
-// Deletes a school from the database.
-const deleteSchool = async (req, res, next) => {
-    try {
-        const { id } = schoolSchemas_1.deleteSchoolSchema.parse(req.params);
-        const [result] = await db_1.default.execute("DELETE FROM schools WHERE id = ?", [id]);
-        const deleteResult = result;
-        if (deleteResult.affectedRows === 0) {
-            return res.status(404).json({ message: "School not found." });
-        }
-        res.status(200).json({
-            message: "School deleted successfully",
-            schoolId: id,
-        });
-    }
-    catch (error) {
-        if (error instanceof zod_1.z.ZodError) {
-            return res.status(400).json({ errors: error.issues });
-        }
-        next(error);
-    }
-};
-exports.deleteSchool = deleteSchool;
