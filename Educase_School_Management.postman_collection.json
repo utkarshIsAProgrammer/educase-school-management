@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "educase-school-management-clean",
+		"name": "Educase School Management (Clean)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Schools",
+			"item": [
+				{
+					"name": "Add School",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Example School\",\n  \"address\": \"123 Main St\",\n  \"latitude\": 34.052235,\n  \"longitude\": -118.243683\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/schools",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "schools"]
+						}
+					}
+				},
+				{
+					"name": "List Schools (Nearby)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/schools?lat=34.052235&lng=-118.243683",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "schools"],
+							"query": [
+								{
+									"key": "lat",
+									"value": "34.052235"
+								},
+								{
+									"key": "lng",
+									"value": "-118.243683"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Update School",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated School Name\",\n  \"address\": \"Updated Address\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/schools/{{schoolId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "schools", "{{schoolId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete School",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/api/schools/{{schoolId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "schools", "{{schoolId}}"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://educase-school-management-hb5j.onrender.com"
+		},
+		{
+			"key": "schoolId",
+			"value": "1"
+		}
+	]
+}

@@ -80,7 +80,72 @@ http://localhost:5500/api/listSchools?latitude=34.052235&longitude=-118.243683
 
 ---
 
-# 3. Validation Errors
+# 3. Update School API
+
+-   **Endpoint:** `/api/updateSchool/:id`
+-   **Method:** `PUT`
+-   **URL:**
+    `http://localhost:5500/api/updateSchool/1` (example, where 1 is the school ID)
+
+## Headers
+
+```http
+Content-Type: application/json
+```
+
+## Request Body
+
+```json
+{
+    "name": "Updated School Name",
+    "address": "456 New St, New City",
+    "latitude": 34.052235,
+    "longitude": -118.243683
+}
+```
+
+> All fields in the request body are optional. Only the fields provided should be updated. The `id` in the URL is mandatory.
+
+## Success Response
+
+```json
+{
+    "message": "School updated successfully",
+    "schoolId": 1
+}
+```
+
+## Error Responses
+
+-   `404 Not Found` if the school with the given `id` does not exist.
+-   `400 Bad Request` for validation errors (e.g., invalid `id` in URL, invalid data in body).
+
+---
+
+# 4. Delete School API
+
+-   **Endpoint:** `/api/deleteSchool/:id`
+-   **Method:** `DELETE`
+-   **URL:**
+    `http://localhost:5500/api/deleteSchool/1` (example, where 1 is the school ID)
+
+## Success Response
+
+```json
+{
+    "message": "School deleted successfully",
+    "schoolId": 1
+}
+```
+
+## Error Responses
+
+-   `404 Not Found` if the school with the given `id` does not exist.
+-   `400 Bad Request` for validation errors (e.g., invalid `id` in URL).
+
+---
+
+# 5. Validation Errors
 
 If invalid data is provided, the API returns:
 
@@ -102,7 +167,7 @@ If invalid data is provided, the API returns:
 
 ---
 
-# 4. Tech Stack
+# 6. Tech Stack
 
 -   Node.js
 -   Express.js
@@ -112,7 +177,7 @@ If invalid data is provided, the API returns:
 
 ---
 
-# 5. Running the Project
+# 7. Running the Project
 
 ## Install Dependencies
 
@@ -134,7 +199,7 @@ http://localhost:5500
 
 ---
 
-# 6. Database Setup
+# 8. Database Setup
 
 Run the following SQL commands inside MySQL/MariaDB:
 
@@ -155,7 +220,7 @@ CREATE TABLE schools (
 
 ---
 
-# 7. Environment Variables
+# 9. Environment Variables
 
 Create a `.env` file in the project root:
 
