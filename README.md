@@ -6,9 +6,6 @@ A robust Node.js, Express, and TypeScript API for managing school data, includin
 
 -   **Add School**: Register new school records with details such as name, address, latitude, and longitude.
 -   **List Schools**: Retrieve a list of all registered schools, sorted by their proximity to a given user location.
--   **Update School**: Modify existing school records based on their unique ID. Supports partial updates for specific fields.
--   **Delete School**: Remove school records from the database using their unique ID.
--   **Health Check**: An endpoint to check the API's operational status.
 
 ## Tech Stack
 
@@ -100,6 +97,6 @@ A Postman collection is available to easily test all API endpoints. You can impo
 ## Hosted Backend
 
 The backend API is hosted and accessible at:
-[https://educase-school-management-hb5j.onrender.com](https://educase-school-management-hb5j.onrender.com)
+[https://educase-school-management-8b5y.onrender.com](https://educase-school-management-8b5y.onrender.com)
 
 This hosted backend utilizes a live MySQL database provided by Aiven.

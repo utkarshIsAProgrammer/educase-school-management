@@ -50,38 +50,6 @@
 							]
 						}
 					}
-				},
-				{
-					"name": "Update School",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"Updated School Name\",\n  \"address\": \"Updated Address\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/schools/{{schoolId}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "schools", "{{schoolId}}"]
-						}
-					}
-				},
-				{
-					"name": "Delete School",
-					"request": {
-						"method": "DELETE",
-						"url": {
-							"raw": "{{baseUrl}}/api/schools/{{schoolId}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "schools", "{{schoolId}}"]
-						}
-					}
 				}
 			]
 		}
@@ -89,7 +57,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "https://educase-school-management-hb5j.onrender.com"
+			"value": "https://educase-school-management-8b5y.onrender.com"
 		},
 		{
 			"key": "schoolId",
