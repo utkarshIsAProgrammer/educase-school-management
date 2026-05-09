@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const schoolRoutes_1 = __importDefault(require("./routes/schoolRoutes"));
 require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
+const db_1 = __importDefault(require("./config/db"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 app.use((0, cors_1.default)());
@@ -24,6 +25,21 @@ app.get("/health", (req, res) => {
 app.get("/", (req, res) => {
     res.send("School Management API");
 });
-app.listen(PORT, () => {
+(async () => {
+    try {
+        const connection = await db_1.default.getConnection();
+        console.log("Database connected successfully");
+        connection.release();
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    }
+    catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1);
+    }
+})();
+/* app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+ */

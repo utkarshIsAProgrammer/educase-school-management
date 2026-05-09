@@ -8,4 +8,6 @@ const schoolController_1 = require("../controllers/schoolController");
 const router = express_1.default.Router();
 router.post("/addSchool", schoolController_1.addSchool);
 router.get("/listSchools", schoolController_1.listSchools);
+router.put("/updateSchool/:id", schoolController_1.updateSchool);
+router.delete("/deleteSchool/:id", schoolController_1.deleteSchool);
 exports.default = router;
