@@ -87,7 +87,7 @@ export const updateSchool = async (
 			return res.status(400).json({ message: "Invalid school ID" });
 		}
 
-		const validatedBody = updateSchoolSchema.partial().parse(req.body);
+		const validatedBody = updateSchoolSchema.parse(req.body);
 
 		const fieldsToUpdate: string[] = [];
 		const values: (string | number)[] = [];
