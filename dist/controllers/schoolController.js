@@ -8,6 +8,7 @@ const zod_1 = require("zod");
 const db_1 = __importDefault(require("../config/db"));
 const schoolSchemas_1 = require("../schemas/schoolSchemas");
 const calculateDistance_1 = require("../utils/calculateDistance");
+// Adds a new school to the database.
 const addSchool = async (req, res, next) => {
     try {
         const validatedData = schoolSchemas_1.addSchoolSchema.parse(req.body);
@@ -23,10 +24,11 @@ const addSchool = async (req, res, next) => {
         if (error instanceof zod_1.z.ZodError) {
             return res.status(400).json({ errors: error.issues });
         }
-        next(error); // Pass other errors to the centralized error handler
+        next(error);
     }
 };
 exports.addSchool = addSchool;
+// Lists schools, optionally sorted by distance from a given point.
 const listSchools = async (req, res, next) => {
     try {
         const validatedParams = schoolSchemas_1.listSchoolsSchema.parse(req.query);
@@ -43,41 +45,55 @@ const listSchools = async (req, res, next) => {
         if (error instanceof zod_1.z.ZodError) {
             return res.status(400).json({ errors: error.issues });
         }
-        next(error); // Pass other errors to the centralized error handler
+        next(error);
     }
 };
 exports.listSchools = listSchools;
+// Updates an existing school's information.
 const updateSchool = async (req, res, next) => {
     try {
-        const { id } = schoolSchemas_1.updateSchoolSchema.shape.id.parse(req.params);
+        const id = Number(req.params.id);
+        if (isNaN(id)) {
+            return res.status(400).json({ message: "Invalid school ID" });
+        }
         const validatedBody = schoolSchemas_1.updateSchoolSchema.partial().parse(req.body);
         const fieldsToUpdate = [];
         const values = [];
-        for (const key in validatedBody) {
-            if (validatedBody[key] !== undefined) {
+        Object.entries(validatedBody).forEach(([key, value]) => {
+            if (value !== undefined) {
                 fieldsToUpdate.push(`${key} = ?`);
-                values.push(validatedBody[key]);
+                values.push(value);
             }
-        }
+        });
         if (fieldsToUpdate.length === 0) {
-            return res.status(400).json({ message: "No fields to update provided." });
+            return res.status(400).json({
+                message: "No fields to update provided.",
+            });
         }
         values.push(id);
         const [result] = await db_1.default.execute(`UPDATE schools SET ${fieldsToUpdate.join(", ")} WHERE id = ?`, values);
         const updateResult = result;
         if (updateResult.affectedRows === 0) {
-            return res.status(404).json({ message: "School not found." });
+            return res.status(404).json({
+                message: "School not found.",
+            });
         }
-        res.status(200).json({ message: "School updated successfully", schoolId: id });
+        res.status(200).json({
+            message: "School updated successfully",
+            schoolId: id,
+        });
     }
     catch (error) {
         if (error instanceof zod_1.z.ZodError) {
-            return res.status(400).json({ errors: error.issues });
+            return res.status(400).json({
+                errors: error.issues,
+            });
         }
         next(error);
     }
 };
 exports.updateSchool = updateSchool;
+// Deletes a school from the database.
 const deleteSchool = async (req, res, next) => {
     try {
         const { id } = schoolSchemas_1.deleteSchoolSchema.parse(req.params);
@@ -86,7 +102,10 @@ const deleteSchool = async (req, res, next) => {
         if (deleteResult.affectedRows === 0) {
             return res.status(404).json({ message: "School not found." });
         }
-        res.status(200).json({ message: "School deleted successfully", schoolId: id });
+        res.status(200).json({
+            message: "School deleted successfully",
+            schoolId: id,
+        });
     }
     catch (error) {
         if (error instanceof zod_1.z.ZodError) {

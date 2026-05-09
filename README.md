@@ -101,3 +101,5 @@ A Postman collection is available to easily test all API endpoints. You can impo
 
 The backend API is hosted and accessible at:
 [https://educase-school-management-hb5j.onrender.com](https://educase-school-management-hb5j.onrender.com)
+
+This hosted backend utilizes a live MySQL database provided by Aiven.

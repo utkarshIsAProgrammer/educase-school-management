@@ -7,6 +7,7 @@ if (!DB_HOST || !DB_USER || !DB_PASSWORD || !DB_NAME || !DB_PORT) {
 	throw new Error("Missing required database environment variables.");
 }
 
+// Create a MySQL connection pool
 const pool = mysql.createPool({
 	host: DB_HOST,
 	port: Number(DB_PORT),

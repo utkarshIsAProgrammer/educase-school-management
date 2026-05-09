@@ -1,8 +1,9 @@
 {
 	"info": {
 		"_postman_id": "educase-school-management-clean",
-		"name": "Educase School Management (Clean)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"name": "Educase School Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"description": "Postman collection for the Educase School Management API. The API is connected to a live database hosted on Aiven."
 	},
 	"item": [
 		{

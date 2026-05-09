@@ -1,5 +1,10 @@
 import express from "express";
-import { addSchool, listSchools, updateSchool, deleteSchool } from "../controllers/schoolController";
+import {
+	addSchool,
+	listSchools,
+	updateSchool,
+	deleteSchool,
+} from "../controllers/schoolController";
 
 const router = express.Router();
 

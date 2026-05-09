@@ -97,10 +97,10 @@ Content-Type: application/json
 
 ```json
 {
-    "name": "Updated School Name",
-    "address": "456 New St, New City",
-    "latitude": 34.052235,
-    "longitude": -118.243683
+	"name": "Updated School Name",
+	"address": "456 New St, New City",
+	"latitude": 34.052235,
+	"longitude": -118.243683
 }
 ```
 
@@ -110,8 +110,8 @@ Content-Type: application/json
 
 ```json
 {
-    "message": "School updated successfully",
-    "schoolId": 1
+	"message": "School updated successfully",
+	"schoolId": 1
 }
 ```
 
@@ -133,8 +133,8 @@ Content-Type: application/json
 
 ```json
 {
-    "message": "School deleted successfully",
-    "schoolId": 1
+	"message": "School deleted successfully",
+	"schoolId": 1
 }
 ```
 
@@ -225,9 +225,29 @@ CREATE TABLE schools (
 Create a `.env` file in the project root:
 
 ```env
+# Local Development Database
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=
 DB_NAME=school_management
+DB_PORT=3306
+
+PORT=5500
+```
+
+---
+
+# 10. Connecting to Aiven Live Database
+
+To test against the live database hosted on Aiven, update your `.env` file with the following environment variables.
+**Note:** The `ssl: { rejectUnauthorized: false }` option is required in `src/config/db.ts` for Aiven connections.
+
+```env
+DB_HOST=<YOUR_AIVEN_DB_HOST>
+DB_PORT=<YOUR_AIVEN_DB_PORT>
+DB_USER=<YOUR_AIVEN_DB_USER>
+DB_PASSWORD=<YOUR_AIVEN_DB_PASSWORD>
+DB_NAME=<YOUR_AIVEN_DB_NAME>
+
 PORT=5500
 ```

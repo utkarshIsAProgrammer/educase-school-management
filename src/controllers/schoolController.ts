@@ -10,6 +10,7 @@ import {
 import { School, SchoolWithDistance } from "../types/school";
 import { calculateDistance } from "../utils/calculateDistance";
 
+// Adds a new school to the database.
 export const addSchool = async (
 	req: Request,
 	res: Response,
@@ -38,6 +39,7 @@ export const addSchool = async (
 	}
 };
 
+// Lists schools, optionally sorted by distance from a given point.
 export const listSchools = async (
 	req: Request,
 	res: Response,
@@ -72,6 +74,7 @@ export const listSchools = async (
 	}
 };
 
+// Updates an existing school's information.
 export const updateSchool = async (
 	req: Request,
 	res: Response,
@@ -101,7 +104,6 @@ export const updateSchool = async (
 				message: "No fields to update provided.",
 			});
 		}
-
 		values.push(id);
 
 		const [result] = await pool.execute(
@@ -132,6 +134,7 @@ export const updateSchool = async (
 	}
 };
 
+// Deletes a school from the database.
 export const deleteSchool = async (
 	req: Request,
 	res: Response,
@@ -159,6 +162,7 @@ export const deleteSchool = async (
 		if (error instanceof z.ZodError) {
 			return res.status(400).json({ errors: error.issues });
 		}
+
 		next(error);
 	}
 };
